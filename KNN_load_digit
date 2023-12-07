@@ -1,0 +1,32 @@
+from sklearn.metrics import confusion_matrix, accuracy_score
+from sklearn import cross_validation
+
+# load sample dataset of digits
+digits = datasets.load_digits()
+
+# prepare datasets from training and for validation
+X_train, X_test, y_train, y_test = cross_validation.train_test_split(digits.data, digits.target, test_size=0.4, random_state=0)
+
+# runs the kNN classifier for even number of neighbors from 1 to 10
+for n in range(1, 10, 2):
+        clf = neighbors.KNeighborsClassifier(n)
+
+        # instance based learning
+        clf.fit(X_train, y_train)
+
+        # our 'ground truth'
+        y_true = y_test
+
+        # predict
+        y_pred = clf.predict(X_test)
+
+        # learning metrics
+        cm = confusion_matrix(y_true, y_pred)
+        acc = accuracy_score(y_true, y_pred)
+
+        print "Neighbors: %d" % n
+        print "Confusion Matrix"
+        print cm
+
+        print "Accuracy score: %f" % accuracy_score(y_true, y_pred)
+        print
